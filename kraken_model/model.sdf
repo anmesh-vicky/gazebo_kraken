@@ -220,51 +220,6 @@
       </axis>
     </joint>
 
-    <link name='thruster_depth_back'>
-      <pose frame=''>-0.52013 -0.0020519 0.1549928 0.084983 -1.5708 0</pose>
-      <inertial>
-        <!--pose frame=''>-0.03593 0.0010221 -3.6841E-05 0 0 0</pose-->
-        <mass>0.27942</mass>
-        <inertia>
-          <ixx>0.00014697</ixx>
-          <ixy>-2.2392E-05</ixy>
-          <ixz>8.9545E-07</ixz>
-          <iyy>0.00072689</iyy>
-          <iyz>-3.6164E-07</iyz>
-          <izz>0.00074014</izz>
-        </inertia>
-      </inertial>
-      <visual name='thruster_depth_back_visual'>
-        <pose frame=''>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <uri>model://kraken_model/meshes/thruster_depth_back.STL</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <!--colour>
-            <rgba>12 120 12 1</rgba>
-          </colour-->
-        </material>
-      </visual>
-      <collision name='thruster_depth_back_collision'>
-        <pose frame=''>0 0 0 0 0 0</pose>
-        <geometry>
-          <mesh>
-            <uri>model://kraken_model/meshes/thruster_depth_back.STL</uri>
-          </mesh>
-        </geometry>
-      </collision>
-    </link>
-    <joint name="joint_thruster_depth_back" type="fixed">
-      <parent>base_link</parent>
-      <child>thruster_depth_back</child>
-      <pose frame=''>0 0 0 0 0 0</pose>
-      <axis>
-        <xyz>0 0 0</xyz>
-      </axis>
-    </joint>
-
     <link name='thruster_depth_front'>
       <pose frame=''>0.434540624723199 0.00194813343016015 0.1549926841 3.05660929245613 -1.5707963267949 0</pose>
       <inertial>
@@ -304,6 +259,51 @@
     <joint name="joint_thruster_depth_front" type="fixed">
       <parent>base_link</parent>
       <child>thruster_depth_front</child>
+      <pose frame=''>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 0</xyz>
+      </axis>
+    </joint>
+    
+    <link name='thruster_depth_back'>
+      <pose frame=''>-0.52013 -0.0020519 0.1549928 0.084983 -1.5708 0</pose>
+      <inertial>
+        <!--pose frame=''>-0.03593 0.0010221 -3.6841E-05 0 0 0</pose-->
+        <mass>0.27942</mass>
+        <inertia>
+          <ixx>0.00014697</ixx>
+          <ixy>-2.2392E-05</ixy>
+          <ixz>8.9545E-07</ixz>
+          <iyy>0.00072689</iyy>
+          <iyz>-3.6164E-07</iyz>
+          <izz>0.00074014</izz>
+        </inertia>
+      </inertial>
+      <visual name='thruster_depth_back_visual'>
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://kraken_model/meshes/thruster_depth_back.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <!--colour>
+            <rgba>12 120 12 1</rgba>
+          </colour-->
+        </material>
+      </visual>
+      <collision name='thruster_depth_back_collision'>
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://kraken_model/meshes/thruster_depth_back.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="joint_thruster_depth_back" type="fixed">
+      <parent>base_link</parent>
+      <child>thruster_depth_back</child>
       <pose frame=''>0 0 0 0 0 0</pose>
       <axis>
         <xyz>0 0 0</xyz>
