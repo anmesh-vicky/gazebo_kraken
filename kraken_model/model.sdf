@@ -373,9 +373,9 @@
        <alwaysOn>true</alwaysOn>
        <updateRate>0.0</updateRate>
        <cameraName>kraken/front_camera</cameraName>
-       <imageTopicName>kraken_front_camera</imageTopicName>
-       <cameraInfoTopicName>kraken_front_camera_info</cameraInfoTopicName>
-       <frameName>camera_link</frameName>
+       <imageTopicName>image_raw</imageTopicName>
+       <cameraInfoTopicName>image_info</cameraInfoTopicName>
+       <frameName>front_camera</frameName>
        <hackBaseline>0.07</hackBaseline>
        <distortionK1>0.0</distortionK1>
        <distortionK2>0.0</distortionK2>
@@ -456,9 +456,9 @@
        <alwaysOn>true</alwaysOn>
        <updateRate>0.0</updateRate>
        <cameraName>kraken/bottom_camera</cameraName>
-       <imageTopicName>kraken_bottom_camera</imageTopicName>
-       <cameraInfoTopicName>kraken_bottom_camera_info</cameraInfoTopicName>
-       <frameName>camera_link</frameName>
+       <imageTopicName>image_raw</imageTopicName>
+       <cameraInfoTopicName>image_info</cameraInfoTopicName>
+       <frameName>bottom_camera</frameName>
        <hackBaseline>0.07</hackBaseline>
        <distortionK1>0.0</distortionK1>
        <distortionK2>0.0</distortionK2>
@@ -521,6 +521,176 @@
         <xyz>0 0 0</xyz>
       </axis>
     </joint>
+
+    <link name='Imu'>
+      <pose frame=''>0 0 0.44 0 0 0</pose>
+      <inertial>
+        <mass>0.000001</mass>
+        <inertia>
+          <ixx>0</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0</iyy>
+          <iyz>0</iyz>
+          <izz>0</izz>
+        </inertia>
+      </inertial>
+      <visual name='Imu_visual'>
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual>
+      <collision name='Imu_collision'>
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </collision>
+      <sensor type="imu" name="Imu">
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <visualize>true</visualize>
+        <!--topic>kraken_imu</topic-->
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <imu>
+          <!--topic>kraken_imu</topic-->
+          <angular_velocity>
+            <x>
+              <noise type="none">
+              </noise>
+            </x>
+            <y>
+              <noise type="none">
+              </noise>
+            </y>
+            <z>
+              <noise type="none">
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="none">
+              </noise>
+            </x>
+            <y>
+              <noise type="none">
+              </noise>
+            </y>
+            <z>
+              <noise type="none">
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+        <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+          <alwaysOn>true</alwaysOn>
+          <robotNamespace>kraken</robotNamespace>
+          <topicName>imu</topicName>
+          <frameName>Imu</frameName>
+          <gaussianNoise>0</gaussianNoise>
+          <updateRateHZ>10</updateRateHZ>
+          <xyzOffset>0 0 0</xyzOffset>
+          <rpyOffset>0 0 0</rpyOffset>
+        </plugin>
+      </sensor>
+
+    </link>
+    <joint name='joint_Imu' type="fixed">
+      <parent>base_link</parent>
+      <child>Imu</child>
+      <pose frame=''>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 0</xyz>
+      </axis>
+    </joint>
+
+    <plugin name="BuoyancyPlugin0" filename="libBuoyancyPlugin.so">
+    <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="base_link">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+    <plugin name="BuoyancyPlugin1" filename="libBuoyancyPlugin.so">
+      <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="thruster_surge_front">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+    <plugin name="BuoyancyPlugin2" filename="libBuoyancyPlugin.so">
+      <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="thruster_surge_back">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+    <plugin name="BuoyancyPlugin3" filename="libBuoyancyPlugin.so">
+      <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="thruster_sway_front">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+    <plugin name="BuoyancyPlugin4" filename="libBuoyancyPlugin.so">
+      <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="thruster_sway_back">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+    <plugin name="BuoyancyPlugin5" filename="libBuoyancyPlugin.so">
+      <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="thruster_depth_front">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+    <plugin name="BuoyancyPlugin6" filename="libBuoyancyPlugin.so">
+      <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="thruster_depth_back">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+    <plugin name="BuoyancyPlugin7" filename="libBuoyancyPlugin.so">
+      <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="front_camera">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+    <plugin name="BuoyancyPlugin8" filename="libBuoyancyPlugin.so">
+      <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="bottom_camera">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+    <plugin name="BuoyancyPlugin9" filename="libBuoyancyPlugin.so">
+      <!-- a viscous liquid -->
+      <fluid_density>8</fluid_density>
+      <link name="DVL">
+        <!--center_of_volume>0 0 0</center_of_volume-->
+        <!--volume>50</volume-->
+      </link>
+    </plugin>
+
 
   </model>
 </sdf>
