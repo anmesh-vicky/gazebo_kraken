@@ -373,9 +373,9 @@
        <alwaysOn>true</alwaysOn>
        <updateRate>0.0</updateRate>
        <cameraName>kraken/front_camera</cameraName>
-       <imageTopicName>kraken_front_camera</imageTopicName>
-       <cameraInfoTopicName>kraken_front_camera_info</cameraInfoTopicName>
-       <frameName>camera_link</frameName>
+       <imageTopicName>image_raw</imageTopicName>
+       <cameraInfoTopicName>image_info</cameraInfoTopicName>
+       <frameName>front_camera</frameName>
        <hackBaseline>0.07</hackBaseline>
        <distortionK1>0.0</distortionK1>
        <distortionK2>0.0</distortionK2>
@@ -456,9 +456,9 @@
        <alwaysOn>true</alwaysOn>
        <updateRate>0.0</updateRate>
        <cameraName>kraken/bottom_camera</cameraName>
-       <imageTopicName>kraken_bottom_camera</imageTopicName>
-       <cameraInfoTopicName>kraken_bottom_camera_info</cameraInfoTopicName>
-       <frameName>camera_link</frameName>
+       <imageTopicName>image_raw</imageTopicName>
+       <cameraInfoTopicName>image_info</cameraInfoTopicName>
+       <frameName>bottom_camera</frameName>
        <hackBaseline>0.07</hackBaseline>
        <distortionK1>0.0</distortionK1>
        <distortionK2>0.0</distortionK2>
@@ -522,5 +522,122 @@
       </axis>
     </joint>
 
+    <link name='Imu'>
+      <pose frame=''>0 0 0.44 0 0 0</pose>
+      <inertial>
+        <mass>0.000001</mass>
+        <inertia>
+          <ixx>0</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0</iyy>
+          <iyz>0</iyz>
+          <izz>0</izz>
+        </inertia>
+      </inertial>
+      <visual name='Imu_visual'>
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual>
+      <collision name='Imu_collision'>
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </collision>
+      <sensor type="imu" name="Imu">
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <visualize>true</visualize>
+        <!--topic>kraken_imu</topic-->
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <imu>
+          <!--topic>kraken_imu</topic-->
+          <angular_velocity>
+            <x>
+              <noise type="none">
+              </noise>
+            </x>
+            <y>
+              <noise type="none">
+              </noise>
+            </y>
+            <z>
+              <noise type="none">
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="none">
+              </noise>
+            </x>
+            <y>
+              <noise type="none">
+              </noise>
+            </y>
+            <z>
+              <noise type="none">
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+        <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+          <alwaysOn>true</alwaysOn>
+          <robotNamespace>kraken</robotNamespace>
+          <topicName>imu</topicName>
+          <frameName>Imu</frameName>
+          <gaussianNoise>0</gaussianNoise>
+          <updateRateHZ>10</updateRateHZ>
+          <xyzOffset>0 0 0</xyzOffset>
+          <rpyOffset>0 0 0</rpyOffset>
+        </plugin>
+      </sensor>
+
+    </link>
+    <joint name='joint_Imu' type="fixed">
+      <parent>base_link</parent>
+      <child>Imu</child>
+      <pose frame=''>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 0</xyz>
+      </axis>
+    </joint>
+
+    <plugin name="BuoyancyPlugin0" filename="libBuoyancyPlugin.so">
+    <!-- a viscous liquid -->
+      <fluid_density>80</fluid_density>
+      <!--link name="base_link">
+        <volume>0.000050</volume>
+      </link-->
+    </plugin>
+    <plugin name="lifting_surface" filename="libLiftDragPlugin.so">
+        <!-- taken from the lift curve figure -->
+        <!-- alpha_0 is 5 degrees -->
+        <a0>0</a0>
+        <!-- alpha_stall is 19.3 degrees -->
+        <alpha_stall>0.3368</alpha_stall>
+        <!-- slope of the lift curve to the left of the stall angle -->
+        <cla>1.418</cla>
+        <!-- slope of the lift curve to the right of the stall angle -->
+        <cla_stall>-1.1419</cla_stall>
+
+        <!-- below are just random values in this example -->
+        <cda>0.0</cda>
+        <cda_stall>1.42</cda_stall>
+        <cma>0.0</cma>
+        <cma_stall>0.0</cma_stall>
+        <area>3</area>
+        <fluid_density>80</fluid_density>
+        <forward>0 -0.7071067811865476 -0.7071067811865475</forward>
+        <upward>0 0.7071067811865475 -0.7071067811865476</upward>
+        <cp>0 0.35 0</cp>
+      </plugin>
   </model>
 </sdf>
