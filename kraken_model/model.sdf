@@ -612,85 +612,32 @@
 
     <plugin name="BuoyancyPlugin0" filename="libBuoyancyPlugin.so">
     <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="base_link">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
+      <fluid_density>80</fluid_density>
+      <!--link name="base_link">
+        <volume>0.000050</volume>
+      </link-->
     </plugin>
-    <plugin name="BuoyancyPlugin1" filename="libBuoyancyPlugin.so">
-      <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="thruster_surge_front">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
-    </plugin>
-    <plugin name="BuoyancyPlugin2" filename="libBuoyancyPlugin.so">
-      <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="thruster_surge_back">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
-    </plugin>
-    <plugin name="BuoyancyPlugin3" filename="libBuoyancyPlugin.so">
-      <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="thruster_sway_front">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
-    </plugin>
-    <plugin name="BuoyancyPlugin4" filename="libBuoyancyPlugin.so">
-      <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="thruster_sway_back">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
-    </plugin>
-    <plugin name="BuoyancyPlugin5" filename="libBuoyancyPlugin.so">
-      <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="thruster_depth_front">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
-    </plugin>
-    <plugin name="BuoyancyPlugin6" filename="libBuoyancyPlugin.so">
-      <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="thruster_depth_back">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
-    </plugin>
-    <plugin name="BuoyancyPlugin7" filename="libBuoyancyPlugin.so">
-      <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="front_camera">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
-    </plugin>
-    <plugin name="BuoyancyPlugin8" filename="libBuoyancyPlugin.so">
-      <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="bottom_camera">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
-    </plugin>
-    <plugin name="BuoyancyPlugin9" filename="libBuoyancyPlugin.so">
-      <!-- a viscous liquid -->
-      <fluid_density>8</fluid_density>
-      <link name="DVL">
-        <!--center_of_volume>0 0 0</center_of_volume-->
-        <!--volume>50</volume-->
-      </link>
-    </plugin>
+    <plugin name="lifting_surface" filename="libLiftDragPlugin.so">
+        <!-- taken from the lift curve figure -->
+        <!-- alpha_0 is 5 degrees -->
+        <a0>0</a0>
+        <!-- alpha_stall is 19.3 degrees -->
+        <alpha_stall>0.3368</alpha_stall>
+        <!-- slope of the lift curve to the left of the stall angle -->
+        <cla>1.418</cla>
+        <!-- slope of the lift curve to the right of the stall angle -->
+        <cla_stall>-1.1419</cla_stall>
 
-
+        <!-- below are just random values in this example -->
+        <cda>0.0</cda>
+        <cda_stall>1.42</cda_stall>
+        <cma>0.0</cma>
+        <cma_stall>0.0</cma_stall>
+        <area>3</area>
+        <fluid_density>80</fluid_density>
+        <forward>0 -0.7071067811865476 -0.7071067811865475</forward>
+        <upward>0 0.7071067811865475 -0.7071067811865476</upward>
+        <cp>0 0.35 0</cp>
+      </plugin>
   </model>
 </sdf>
